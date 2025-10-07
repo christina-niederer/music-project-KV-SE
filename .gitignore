@@ -1,0 +1,16 @@
+# env files
+.env
+.env.*
+!.env.example
+
+# venv
+venv/
+.venv/
+!.venv/
+
+# alembic cache
+alembic/__pycache__/
+
+#Cache Files
+__pycache__/
+*.pyc
