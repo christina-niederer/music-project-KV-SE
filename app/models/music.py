@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import String, ForeignKey, Boolean, Text, Integer
+from sqlalchemy import String, ForeignKey, Boolean, Text, Integer, LargeBinary, DateTime, func
 from sqlalchemy import UniqueConstraint
 from app.database import Base
 from typing import Optional
@@ -33,6 +33,8 @@ class MusicItem(Base):
     # Album <-> Track relationship (self-referential through AlbumTrack)
     album_tracks = relationship("AlbumTrack", back_populates="album", cascade="all, delete-orphan", foreign_keys="AlbumTrack.album_id", order_by="AlbumTrack.track_number")
     track_albums = relationship("AlbumTrack", back_populates="track", cascade="all, delete-orphan", foreign_keys="AlbumTrack.track_id")
+    # Optional binary file attached to a track
+    track_file = relationship("TrackFile", back_populates="track", uselist=False, cascade="all, delete-orphan")
 
 class MusicItemArtist(Base):
     __tablename__ = "music_item_artists"
@@ -86,3 +88,17 @@ class AlbumTrack(Base):
 
     album = relationship("MusicItem", foreign_keys=[album_id], back_populates="album_tracks")
     track = relationship("MusicItem", foreign_keys=[track_id], back_populates="track_albums")
+
+
+class TrackFile(Base):
+    __tablename__ = "track_files"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    track_id: Mapped[int] = mapped_column(ForeignKey("music_items.id"), unique=True, index=True)
+    filename: Mapped[Optional[str]] = mapped_column(String(500), nullable=False)
+    content_type: Mapped[Optional[str]] = mapped_column(String(120), nullable=True)
+    file_data: Mapped[Optional[bytes]] = mapped_column(LargeBinary, nullable=False)
+    compressed: Mapped[bool] = mapped_column(Boolean, default=True)
+    original_size: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    created_at: Mapped[Optional[str]] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+    track = relationship("MusicItem", back_populates="track_file", foreign_keys=[track_id])

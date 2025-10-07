@@ -85,5 +85,16 @@ class CollectionEntryOut(BaseModel):
     class Config:
         from_attributes = True
 
+# Track file (binary stored compressed in DB)
+class TrackFileOut(BaseModel):
+    id: int
+    track_id: int
+    filename: str
+    content_type: Optional[str] = None
+    compressed: bool
+    original_size: Optional[int] = None
+    class Config:
+        from_attributes = True
+
 # Forward reference resolution for recursive model
 MusicItemOut.model_rebuild()

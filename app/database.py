@@ -18,4 +18,4 @@ def get_db():
 def init_db():
     # Import models so metadata is populated
     from app.models.user import User
-    from app.models.music import Artist, Genre, MusicItem, MusicItemArtist, MusicItemGenre, Review, UserCollection, AlbumTrack
+    from app.models.music import Artist, Genre, MusicItem, MusicItemArtist, MusicItemGenre, Review, UserCollection, AlbumTrack, TrackFile
