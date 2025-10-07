@@ -21,7 +21,7 @@ Ich war mir nicht so richtig sciher was die ganze App eigenltich sein soll/will.
 Diese können Songs, Alben ... sein und jeder user hat genau eine Collection welcher er Songs daraus zuteilen kann. 
 Die Songs kommen aus dem großen allgemeinen Pool den aber nur ADMIN bearbeiten können.
 
-Es stellen sich schon noch einige Fragen. Sollen echte Songs gespeichert werden können und angehört werden können oder soll es nur so wirken?
+Es stellen sich schon noch einige Fragen. Sollen echte Songs gespeichert werden können und angehört werden können oder soll es nur so wirken? Update:Upload Download mp3 geht jetzt
 
-Soll ein Album dann aus mehreren Songs bestehen? Aktuell ist das noch nicht so ... Weil warum auch?
+Soll ein Album dann aus mehreren Songs bestehen? Aktuell ist das noch nicht so ... Weil warum auch? - Update: Jetzt ist es doch so ... weil warum nicht?
 
