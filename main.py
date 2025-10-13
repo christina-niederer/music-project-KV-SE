@@ -33,7 +33,7 @@ app.router.lifespan_context = lifespan
 def root():
     return {"message": "Music Collection Manager API", "docs": "/docs"}
 
-# Optional simple user management demo (header-based)
+# Simple user management demo (header-based)
 app.include_router(auth_router, prefix="/auth", tags=["auth-demo"])
 
 # Core resources
