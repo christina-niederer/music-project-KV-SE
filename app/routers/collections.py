@@ -32,7 +32,7 @@ def get_collection(user_id: int, db: Session = Depends(get_db)):
     ).filter(models.UserCollection.user_id == user_id).all()
     return [_serialize_collection_entry(e) for e in entries]
 
-@router.post("/{user_id}/collection/{music_item_id}", response_model=schemas.CollectionEntryOut, status_code=201)
+@router.post("/{user_id}/collection/{music_item_id}", status_code=201)
 def add_to_collection(user_id: int, music_item_id: int, db: Session = Depends(get_db), user: models.User = Depends(get_current_user)):
     if user.id != user_id and user.role != "ADMIN":
         raise HTTPException(status_code=403, detail="Cannot modify another user's collection")
@@ -48,7 +48,7 @@ def add_to_collection(user_id: int, music_item_id: int, db: Session = Depends(ge
     db.refresh(entry)
     return entry
 
-@router.patch("/{user_id}/collection/{music_item_id}", response_model=schemas.CollectionEntryOut)
+@router.patch("/{user_id}/collection/{music_item_id}")
 def update_collection_entry(user_id: int, music_item_id: int, payload: schemas.CollectionUpsert,
                             db: Session = Depends(get_db), user: models.User = Depends(get_current_user)):
     if user.id != user_id and user.role != "ADMIN":

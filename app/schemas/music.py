@@ -1,6 +1,8 @@
 from pydantic import BaseModel, Field, HttpUrl
 from typing import Optional, List
 
+from app.schemas.user import UserOut
+
 # Artist
 class ArtistCreate(BaseModel):
     name: str = Field(min_length=1, max_length=200)
@@ -66,8 +68,9 @@ class ReviewOut(BaseModel):
     music_item_id: int
     rating: Optional[int] = None
     text: Optional[str] = None
+    user: UserOut
     class Config:
-        from_attributes = True
+         model_config = {"from_attributes": True}
 
 # Collection
 class CollectionUpsert(BaseModel):
@@ -83,7 +86,7 @@ class CollectionEntryOut(BaseModel):
     note: Optional[str] = None
     music_item: Optional[MusicItemOut] = None  # enriched when returning collections
     class Config:
-        from_attributes = True
+        model_config = {"from_attributes": True}
 
 # Track file (binary stored compressed in DB)
 class TrackFileOut(BaseModel):

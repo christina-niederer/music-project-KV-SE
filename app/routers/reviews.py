@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from app.database import get_db
 from app import models, schemas
@@ -36,7 +36,11 @@ def create_or_update_review(payload: schemas.ReviewCreate, db: Session = Depends
 
 @router.get("/item/{music_item_id}", response_model=list[schemas.ReviewOut])
 def list_reviews_for_item(music_item_id: int, db: Session = Depends(get_db)):
-    return db.query(models.Review).filter(models.Review.music_item_id == music_item_id).all()
+    return db.query(models.Review).filter(
+        models.Review.music_item_id == music_item_id
+    ).options(
+        joinedload(models.Review.user)
+    ).all()
 
 @router.delete("/{review_id}", status_code=204)
 def delete_review(review_id: int, db: Session = Depends(get_db), user: models.User = Depends(get_current_user)):
