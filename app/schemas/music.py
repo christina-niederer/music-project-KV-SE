@@ -1,5 +1,5 @@
-from pydantic import BaseModel, Field, HttpUrl
-from typing import Optional, List
+from pydantic import BaseModel, Field
+from typing import Optional
 
 from app.schemas.user import UserOut
 
